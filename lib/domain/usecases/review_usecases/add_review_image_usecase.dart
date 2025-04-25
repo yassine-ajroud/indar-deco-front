@@ -10,6 +10,6 @@ class AddReviewImageUsecase {
 
  const AddReviewImageUsecase(this._repository);
 
-  Future<Either<Failure, Unit>> call({required String reviewId,required File file}) async=>
-      await _repository.addReviewImage(reviewId: reviewId,file: file);
+  Future<Either<Failure, String>> call({required File file}) async=>
+      await _repository.addReviewImage(file: file);
 }

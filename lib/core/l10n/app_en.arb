@@ -218,7 +218,8 @@
 "no_notifications":"There are no notifications",
 "update_order_status":"update status of the order",
 "feature_unavailable":"Feature unavailable",
-"feature_unavailable_text":"This feature is not available during the beta version; it will be available in the official release."
+"feature_unavailable_text":"This feature is not available during the beta version; it will be available in the official release.",
+"website":"website"
 
 
 }

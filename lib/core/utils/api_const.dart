@@ -86,6 +86,6 @@ class ApiConst {
 */
   //assets apis
   static const String userImages = "http://$ipAddress/api/uploads/images";
-  static const String revbewImages = "http://$ipAddress/api/uploads/reviews";
+  static const String reviewImages = "http://$ipAddress/api/uploads/reviews";
 
 }

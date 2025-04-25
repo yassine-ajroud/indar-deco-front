@@ -104,19 +104,29 @@ void clearUpdateFile(){
   updatefileName = '';
   update();
 }
-Future<void> updateComment(Review newReview,String newComment)async{
+Future<void> updateComment(Review newReview,String newComment , BuildContext context)async{
+         showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
+  if(updatef!=null){
+                                final img=      await AddReviewImageUsecase(sl())(file: updatef!) ;
+                                img.fold((l) => null, (r) {
+                                  print('image update added $r');
+                                  newReview.image = r ;
+                                  return updatefileName=r;
+                                });
+                                            }
     if (newComment != '') {
                                 newReview.comment = newComment;
                                 if(updatefileName==''){
                                   newReview.image='';
                                 }
-                                await UpdateReviewUsecase(sl())(newReview)
-                                    .then((value) async {
-                                      if(updatef!=null){
-                                         return await AddReviewImageUsecase(sl())(reviewId: newReview.id!,file: updatef!);
-                                      }
-                                     
-                                    });
+                              
+                                await UpdateReviewUsecase(sl())(newReview);
                                     update();
                                    
                               }
@@ -133,7 +143,10 @@ void clearImage() {
 Future<void> addReview()async{
     AuthenticationController authenticationController=Get.find();
     ProductController productController=Get.find();
-
+     if(f!=null){
+                                final img=      await AddReviewImageUsecase(sl())(file: f!) ;
+                                img.fold((l) => null, (r) => fileName=r);
+                                            }
      await AddReviewUsecase(sl())
                                           .call(Review(
                                               id: null,
@@ -141,10 +154,7 @@ Future<void> addReview()async{
                                               productID: productController.currentProductid,
                                               comment: comment.trim(),
                                               image: fileName))
-                                          .then((value) async{
-                                            if(f!=null){
-                                           value.fold((l) => null, (r)async =>await AddReviewImageUsecase(sl())(reviewId: r.id!,file: f!) );
-                                            }
+                                          .then((value) async{                                       
                                         comment='';
                                         clearImage();
                                           await getProductReviews();

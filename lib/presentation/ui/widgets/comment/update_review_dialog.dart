@@ -137,7 +137,7 @@ class _UpdateReviewDialogState extends State<UpdateReviewDialog> {
                         ),
 
 PrimaryButton(text:AppLocalizations.of(context)!.update , click: ()async{
-        await controller.updateComment(widget.newReview,updatecomment);
+        await controller.updateComment(widget.newReview,updatecomment, context);
            Navigator.of(context).pop();
 }),
                                      

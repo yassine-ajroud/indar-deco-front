@@ -35,9 +35,12 @@ class HelpScreen extends StatelessWidget {
           const SizedBox(height: 20,),
           Text('${AppLocalizations.of(context)!.email} :',style: AppTextStyle.smallBlackTitleTextStyle,),
                       const SizedBox(height: 5,),
-          Text('dhaouadinstar@gmail.com',style: AppTextStyle.descriptionTextStyle,)
+          Text('dhaouadinstar@gmail.com',style: AppTextStyle.descriptionTextStyle,)  ,
       
-                
+                  const SizedBox(height: 20,),
+          Text('${AppLocalizations.of(context)!.website} :',style: AppTextStyle.smallBlackTitleTextStyle,),
+                      const SizedBox(height: 5,),
+          Text('instartech.org',style: AppTextStyle.descriptionTextStyle,)
               ],
             ),
       )

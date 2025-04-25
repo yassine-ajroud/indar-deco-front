@@ -10,6 +10,6 @@ abstract class ReviewRepository {
   Future<Either<Failure, List<Review>>> getAllReviews(String prodId);
   Future<Either<Failure, Unit>> updateReview(Review review);
   Future<Either<Failure, Unit>> removeReview(String prodId);
-  Future<Either<Failure,Unit>> addReviewImage({required String reviewId,required File file});
+  Future<Either<Failure,String>> addReviewImage({required File file});
 
 }

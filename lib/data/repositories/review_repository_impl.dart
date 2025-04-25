@@ -60,10 +60,10 @@ class ReviewRepositoryImpl implements ReviewRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> addReviewImage({required String reviewId, required File file}) async{
+  Future<Either<Failure, String>> addReviewImage({required File file}) async{
        try {
-      await reviewRemoteDataSource.addReviewImage(reviewId,file);
-      return const Right(unit);
+      final res = await reviewRemoteDataSource.addReviewImage(file);
+      return Right(res);
     } on ServerException {
       return Left(ServerFailure());
     }

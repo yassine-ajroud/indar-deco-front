@@ -101,26 +101,53 @@ class AuthenticationController extends GetxController{
     update([ControllerID.UPDATE_USER_IMAGE]);
   }
 
-  Future<void> updateImage(BuildContext context)async{
-  if(userImage==''){
-                  await ClearUserImageUsecase(sl())(currentUser.id!,'');
-                }else{
-                  await UpdateUserImageUsecase(sl()).call(userId:currentUser.id!,file:f!);
-                }
-                await getCurrentUser(currentUser.id!).then((value) => Fluttertoast.showToast(
-                          msg: AppLocalizations.of(context)!.profile_picture_updated,
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: AppColors.toastColor,
-                          textColor: AppColors.white,
-                          fontSize: 16.0) );
-                          
+  Future<void> updateImage(BuildContext context) async {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
+
+  try {
+    if (userImage == '') {
+      await ClearUserImageUsecase(sl())(currentUser.id!, '');
+    } else {
+      await UpdateUserImageUsecase(sl()).call(userId: currentUser.id!, file: f!);
+    }
+
+    await getCurrentUser(currentUser.id!);
+
+    Fluttertoast.showToast(
+      msg: AppLocalizations.of(context)!.profile_picture_updated,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: AppColors.toastColor,
+      textColor: AppColors.white,
+      fontSize: 16.0,
+    );
+  } catch (e) {
+    // You can show an error toast here if needed
+    Fluttertoast.showToast(
+      msg: "Something went wrong",
+      backgroundColor: Colors.red,
+    );
+  } finally {
+    Navigator.of(context, rootNavigator: true).pop(); // Dismiss the dialog
   }
+}
+
 
   Future<void> login(TextEditingController email,TextEditingController password,BuildContext context)async{
-    isLoading = true;
-    update();
+     showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
       final res = await LoginUsecase(sl())(email: email.text, password: password.text);
       res.fold((l) => Fluttertoast.showToast(
                           msg: l.message!,
@@ -144,8 +171,6 @@ class AuthenticationController extends GetxController{
                               return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const MainScreen()));
                             });
                           });
-                                   isLoading = false;
-    update();
   }
 
   Future<void> sendFrogetPasswordRequest(TextEditingController useremail,String destionation,BuildContext context)async{
@@ -317,6 +342,13 @@ String message='error';
                    isLoading = true;
     
     final res =await FacebookLoginUsecase(sl())();
+         showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
     res.fold((l) => null, (r)async {
          final user=  await CreateAccountUsecase(sl()).call(oauth:'F',email: r['id'].toString(), password: r['id'].toString().substring(0,8),address: null,phone: '',firstName: r['name'].split(' ')[0].toString(),lastName: r['name'].split(' ')[1].toString(),image: r['picture']['data']['url'],birthdate: null,gender: null,recoveryEmail: null);
           user.fold((l) => null, (ur)async {
@@ -331,8 +363,13 @@ await login(email,password , context);
   }
 
   Future<void> googleLogin(BuildContext context)async{
-                   isLoading = true;
-    
+                  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
     final res =await GoogleLoginUsecase(sl())();
     res.fold((l) => null, (r)async {
       print(r.toString());

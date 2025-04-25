@@ -34,7 +34,7 @@ class PickReviewImageDialog extends StatelessWidget {
                             icon: const Icon(
                               Icons.image,
                               size: 40,
-                              color: AppColors.secondary,
+                              color: AppColors.primary,
                             )),
                         IconButton(
                             onPressed: () async {
@@ -44,7 +44,7 @@ class PickReviewImageDialog extends StatelessWidget {
                             icon: const Icon(
                               Icons.camera_alt,
                               size: 40,
-                              color: AppColors.secondary,
+                              color: AppColors.primary,
                             )),
                       ]),
                 ),

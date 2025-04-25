@@ -49,7 +49,8 @@ class _CommentWidgetState extends State<CommentWidget> {
       builder: (controller) => FutureBuilder(
         future: controller.getProductReviews(),
         builder: (context, snapshot) {
-          return Column(
+          if(snapshot.hasData){
+   return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -173,6 +174,17 @@ class _CommentWidgetState extends State<CommentWidget> {
               ),
             ],
           );
+          }
+          else if(snapshot.connectionState==ConnectionState.waiting){
+            return const Center(child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            ));
+          }else {
+            return const Text('error');
+          }
+
+       
         }
       ),
     );

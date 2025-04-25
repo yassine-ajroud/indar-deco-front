@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:indar_deco/core/styles/colors.dart';
+import 'package:indar_deco/core/styles/text_styles.dart';
 import 'package:indar_deco/presentation/controllers/authentication_controller.dart';
 import 'package:indar_deco/presentation/controllers/cart_controller.dart';
 import 'package:indar_deco/presentation/controllers/category_controller.dart';
@@ -81,9 +82,20 @@ class _SplashScreenState extends State<SplashScreen> {
       extendBodyBehindAppBar: true,
       body: FutureBuilder(
         future: SplashScreen.init(context, 2),
-        builder:(_,snapshot)=> Center(
-          
-         child: Image.asset('assets/images/instar.jpg',width: 250.w,)
+        builder:(_,snapshot)=> SizedBox(
+          height: MediaQuery.sizeOf(context).height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(),
+              Center(child: Image.asset('assets/images/instar.jpg',width: 250.w,)),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('version beta',style: AppTextStyle.greyTitleTextStyle,),
+              )
+            ],
+          ),
         ),
       ),
     );

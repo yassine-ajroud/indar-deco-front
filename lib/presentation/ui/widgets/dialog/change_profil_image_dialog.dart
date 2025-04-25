@@ -70,9 +70,8 @@ actionsPadding: const EdgeInsets.symmetric(horizontal:20,vertical: 10),
         }, child: Text(AppLocalizations.of(context)!.cancel)),
    PrimaryButton(text: AppLocalizations.of(context)!.save, color:controller.currentUser.image!=controller.userImage ?AppColors.primary:AppColors.grey ,
             click:controller.currentUser.image!=controller.userImage?()async{
-             
-                await controller.updateImage(context);
-                
+
+              await controller.updateImage(context);
       
             }:null),
   ]

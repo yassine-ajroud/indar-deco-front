@@ -219,7 +219,9 @@
 "no_notifications":"Il n'y a aucune notification",
 "update_order_status":"mise à jour de l'état de la commande",
 "feature_unavailable":"Fonctionnalité indisponible",
-"feature_unavailable_text":"Cette fonctionnalité n'est pas disponible pendant la version bêta, elle sera disponible dans la version officielle."
+"feature_unavailable_text":"Cette fonctionnalité n'est pas disponible pendant la version bêta, elle sera disponible dans la version officielle.",
+"website":"site web"
+
 
 
 

@@ -16,7 +16,7 @@ abstract class ReviewRemoteDataSource {
   Future<List<ReviewModel>> getAllReviews(String prodId);
   Future<void> updateReview(ReviewModel review);
   Future<void> removeReview(String id);
-  Future<String> addReviewImage(String reviewId,File file);
+  Future<String> addReviewImage(File file);
 }
 
 class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
@@ -117,7 +117,7 @@ class ReviewRemoteDataSourceImpl implements ReviewRemoteDataSource {
   }
   
   @override
-  Future<String> addReviewImage(String reviewId, File file) async{
+  Future<String> addReviewImage(File file) async{
      try {
 String fileName = file.path.split('/').last;
     FormData formData = FormData.fromMap({
@@ -126,8 +126,9 @@ String fileName = file.path.split('/').last;
             await MultipartFile.fromFile(file.path, filename:fileName,contentType: MediaType("image","jpeg")),
     });
 
-     final res= await dio.post(ApiConst.uploadReviewImage, data: formData);
-     return res.data;
+     final res= await dio.post(ApiConst.reviewImages, data: formData);
+     print(res);
+     return res.data['fileUrl'];
     } catch (e) {
       throw ServerException(message: 'cannot update image');
     }
